@@ -6,10 +6,17 @@ import OrderForm from "./Components/OrderForm.js";
 
 const App = () => {
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+    <div>
+      <nav>
+        <h1>Pizza in Practice</h1>
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/OrderForm">Place your order</Link>
+        </div>
+      </nav>
+      <Route exact path="/" component={Home} />
+      <Route path="/OrderForm" component={OrderForm} />
+    </div>
   );
 };
 export default App;
