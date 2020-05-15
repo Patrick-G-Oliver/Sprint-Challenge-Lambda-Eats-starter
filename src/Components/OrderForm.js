@@ -22,6 +22,22 @@ const OrderForm = () => {
         size: ""
     })
 
+    return (
+        <div>
+            <h2>Please place your order.</h2>
+            <form>
+                <label htmlFor="name">
+                Name 
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+
+                />
+                </label>
+            </form>
+        </div>
+    )
 }
 
 export default OrderForm;
