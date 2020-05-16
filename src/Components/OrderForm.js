@@ -42,21 +42,27 @@ const OrderForm = () => {
         jalapeños: false,
         anchovies: false, 
         marinara: false,
-        pesto: false
+        pesto: false,
+        instructions: ""
     });
 
     const [errorState, setErrorState] = useState({
         name: "",
         size: "",
     })
-// will it work?
-    const [buttonDisabled, setButtonDisabled] = useState(true);
 
-    useEffect(() => {
-        formSchema.isValid(formState).then(valid => {
-          setButtonDisabled(!valid);
+    const clearOrderForm = () => {
+        setFormState({ name: "",
+            size: "",
+            pepperoni: false,
+            olives: false,
+            jalapeños: false,
+            anchovies: false, 
+            marinara: false,
+            esto: false,
+            instructions: "" 
         });
-      }, [formState]);
+    };
 
     const validate = e => {
         let value =
@@ -93,6 +99,7 @@ const OrderForm = () => {
           .post("https://reqres.in/api/users", formState)
           .then(response => console.log(response))
           .catch(err => console.log(err));
+        clearOrderForm();
       };
 
     return (
