@@ -2,7 +2,35 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
 
-
+const formSchema = yup.object().shape({
+    name: yup
+        .string()
+        .min(2, ">= 2 characters required")
+        .required("A name is required"),
+    size: yup
+        .string()
+        .required("A size is required."),
+    pepperoni: yup
+        .boolean()
+        .oneOf([true]),
+        olives: yup 
+        .boolean()
+        .oneOf([true]),
+    jalapeños: yup 
+        .boolean()
+        .oneOf([true]),
+    anchovies: yup 
+        .boolean()
+        .oneOf([true]),
+    marinara: yup 
+        .boolean()
+        .oneOf([true]),
+    pesto: yup 
+        .boolean()
+        .oneOf([true]),
+    instructions: yup
+        .string()
+})
 
 const OrderForm = () => {
     
