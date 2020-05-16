@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div>
       <nav>
-        <h1>Pizza in Practice</h1>
+        <h1>It's Practically Pizza!</h1>
         <div>
           <Link to="/">Home</Link>
           <Link to="/OrderForm">Place your order</Link>

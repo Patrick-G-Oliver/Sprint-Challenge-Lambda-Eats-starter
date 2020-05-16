@@ -47,21 +47,70 @@ const OrderForm = () => {
 
     const [errorState, setErrorState] = useState({
         name: "",
-        size: ""
+        size: "",
     })
+// will it work?
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        formSchema.isValid(formState).then(valid => {
+          setButtonDisabled(!valid);
+        });
+      }, [formState]);
+
+    const validate = e => {
+        let value =
+          e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        yup
+          .reach(formSchema, e.target.name)
+          .validate(value)
+          .then(valid => {
+            setErrorState({
+              ...errorState,
+              [e.target.name]: ""
+            });
+          })
+          .catch(err => {
+            setErrorState({
+              ...errorState,
+              [e.target.name]: err.errors[0]
+            });
+          });
+      };
+
+      const inputChange = e => {
+          e.persist();
+          validate(e);
+          let value = 
+            e.target.type === "checkbox" ? e.target.checked : e.target.value;
+          setFormState({ ...formState, [e.target.name]: value });
+      };
+
+      const formSubmit = e => {
+        e.preventDefault();
+        console.log("form submitted!");
+        axios
+          .post("https://reqres.in/api/users", formState)
+          .then(response => console.log(response))
+          .catch(err => console.log(err));
+      };
 
     return (
         <div>
             <h2>Please place your order.</h2>
-            <form>
+            <form onSubmit={formSubmit}>
                 <label htmlFor="name">
                 Name 
                 <input
                     type="text"
                     name="name"
                     id="name"
-
+                    value={formState.name}
+                    onChange={inputChange}
                 />
+                {errorState.name.length > 0 ? (
+                        <p className="error">{errorState.name}</p>
+                ) : null}
                 </label>
 
                 <label htmlFor="size">
@@ -69,7 +118,8 @@ const OrderForm = () => {
                 <select
                     name="size"
                     id="name"
-
+                    value={formState.size}
+                    onChange={inputChange}
                 >
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
@@ -84,9 +134,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="marinara"
                             id="marinara"
-                            
-
-                    />
+                            value={formState.marinara}
+                            onChange={inputChange}
+                        />
                     Marinara
                     </label>
                     <label htmlFor="pesto">
@@ -94,9 +144,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="pesto"
                             id="pesto"
-                            
-
-                    />
+                            value={formState.pesto}
+                            onChange={inputChange}
+                        />
                     Pesto
                     </label>
                 </div>
@@ -108,9 +158,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="pepperoni"
                             id="pepperoni"
-                            
-
-                    />
+                            value={formState.pepperoni}
+                            onChange={inputChange}
+                        />
                     Pepperoni
                     </label>
                     <label htmlFor="olives">
@@ -118,9 +168,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="olives"
                             id="olives"
-                            
-
-                    />
+                            value={formState.olives}
+                            onChange={inputChange}
+                        />
                     Olives
                     </label>
                     <label htmlFor="jalapeños">
@@ -128,9 +178,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="jalapeños"
                             id="jalapeños"
-                            
-
-                    />
+                            value={formState.jalapeños}
+                            onChange={inputChange}
+                        />
                     Jalapeños
                     </label>
                     <label htmlFor="anchovies">
@@ -138,9 +188,9 @@ const OrderForm = () => {
                             type="checkbox"
                             name="anchovies"
                             id="amchovies"
-                            
-
-                    />
+                            value={formState.anchovies}
+                            onChange={inputChange}
+                        />
                     Anchovies
                     </label>
                 </div>
@@ -151,14 +201,15 @@ const OrderForm = () => {
                         type="textarea"
                         name="instructions"
                         id="instructions"
-
+                        value={formState.instructions}
+                        onChange={inputChange}
                     />
                 </label>
 
                 <button>Place Order</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default OrderForm;
