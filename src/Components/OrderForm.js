@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import styled from "styled-components";
+
+const SpacedInputLabels = styled.label`
+  display: inline-block;
+  padding: 20px 20px;
+  font-size: 1.25rem;
+`;
 
 const formSchema = yup.object().shape({
     name: yup
@@ -106,7 +113,7 @@ const OrderForm = () => {
         <div>
             <h2>Please place your order.</h2>
             <form onSubmit={formSubmit}>
-                <label htmlFor="name">
+                <SpacedInputLabels htmlFor="name">
                 Name 
                 <input
                     type="text"
@@ -118,9 +125,9 @@ const OrderForm = () => {
                 {errorState.name.length > 0 ? (
                         <p className="error">{errorState.name}</p>
                 ) : null}
-                </label>
+                </SpacedInputLabels>
 
-                <label htmlFor="size">
+                <SpacedInputLabels htmlFor="size">
                 Which size pizza would you like?
                 <select
                     name="size"
@@ -132,11 +139,11 @@ const OrderForm = () => {
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
                 </select>
-                </label>
+                </SpacedInputLabels>
 
                 <div>
                     <h3>Sauces:</h3>
-                    <label htmlFor="marinara">
+                    <SpacedInputLabels htmlFor="marinara">
                         <input  
                             type="checkbox"
                             name="marinara"
@@ -145,8 +152,9 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Marinara
-                    </label>
-                    <label htmlFor="pesto">
+                    </SpacedInputLabels>
+
+                    <SpacedInputLabels htmlFor="pesto">
                         <input  
                             type="checkbox"
                             name="pesto"
@@ -155,12 +163,12 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Pesto
-                    </label>
+                    </SpacedInputLabels>
                 </div>
 
                 <div>
                     <h3>Toppings:</h3>
-                    <label htmlFor="pepperoni">
+                    <SpacedInputLabels htmlFor="pepperoni">
                         <input  
                             type="checkbox"
                             name="pepperoni"
@@ -169,8 +177,9 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Pepperoni
-                    </label>
-                    <label htmlFor="olives">
+                    </SpacedInputLabels>
+
+                    <SpacedInputLabels htmlFor="olives">
                         <input  
                             type="checkbox"
                             name="olives"
@@ -179,8 +188,9 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Olives
-                    </label>
-                    <label htmlFor="jalapeños">
+                    </SpacedInputLabels>
+
+                    <SpacedInputLabels htmlFor="jalapeños">
                         <input  
                             type="checkbox"
                             name="jalapeños"
@@ -189,8 +199,9 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Jalapeños
-                    </label>
-                    <label htmlFor="anchovies">
+                    </SpacedInputLabels>
+
+                    <SpacedInputLabels htmlFor="anchovies">
                         <input  
                             type="checkbox"
                             name="anchovies"
@@ -199,10 +210,10 @@ const OrderForm = () => {
                             onChange={inputChange}
                         />
                     Anchovies
-                    </label>
+                    </SpacedInputLabels>
                 </div>
 
-                <label htmlFor="instructions">
+                <SpacedInputLabels htmlFor="instructions">
                 Any special instructions?
                     <input
                         type="textarea"
@@ -211,7 +222,7 @@ const OrderForm = () => {
                         value={formState.instructions}
                         onChange={inputChange}
                     />
-                </label>
+                </SpacedInputLabels>
 
                 <button>Place Order</button>
             </form>
